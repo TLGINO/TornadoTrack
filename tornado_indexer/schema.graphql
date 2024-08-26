@@ -1,0 +1,15 @@
+type TornadoCash_Eth_01_Deposit {
+  id: ID!
+  commitment: String!
+  leafIndex: BigInt!
+  timestamp: BigInt!
+}
+
+type TornadoCash_Eth_01_Withdrawal {
+  id: ID!
+  to: String!
+  nullifierHash: String!
+  relayer: String!
+  fee: BigInt!
+}
+
