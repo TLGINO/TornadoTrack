@@ -1,17 +1,47 @@
 import {
-  TornadoCash_ETH_0_1,
-  TornadoCash_ETH_1,
-  TornadoCash_DAI_100,
+  TornadoCash_NET1_ETH_0_1,
+  TornadoCash_NET1_ETH_1,
+  TornadoCash_NET1_ETH_10,
+  TornadoCash_NET1_ETH_100,
+
+  TornadoCash_NET1_DAI_100,
+  TornadoCash_NET1_DAI_1000,
+  TornadoCash_NET1_DAI_10000,
+  TornadoCash_NET1_DAI_100000,
+  
+  TornadoCash_NET1_CDAI_5000,
+  TornadoCash_NET1_CDAI_50000,
+  TornadoCash_NET1_CDAI_500000,
+  TornadoCash_NET1_CDAI_5000000,
+
+  TornadoCash_NET1_USDC_100,
+  TornadoCash_NET1_USDC_1000,
+
+  TornadoCash_NET1_USDT_100,
+  TornadoCash_NET1_USDT_1000,
+
+  TornadoCash_NET1_WBTC_0_1,
+  TornadoCash_NET1_WBTC_1,
+  TornadoCash_NET1_WBTC_10,
+
+
+  TornadoCash_NET5_ETH_0_1,
+  TornadoCash_NET5_ETH_1,
+  TornadoCash_NET5_ETH_10,
+  TornadoCash_NET5_ETH_100,
+  
   TornadoCash_ETH_Deposit_Chain_1,
   TornadoCash_ETH_Withdrawal_Chain_1,
-  // TornadoCash_ETH_Deposit_Chain_2,
-  // TornadoCash_ETH_Withdrawal_Chain_2,
+
+  TornadoCash_ETH_Deposit_Chain_5,
+  TornadoCash_ETH_Withdrawal_Chain_5,
+
   TornadoCashCurrency,
   TornadoCashAmount,
 } from "generated";
 
-type DepositEntity = TornadoCash_ETH_Deposit_Chain_1 //| TornadoCash_ETH_Deposit_Chain_2;
-type WithdrawalEntity = TornadoCash_ETH_Withdrawal_Chain_1// | TornadoCash_ETH_Withdrawal_Chain_2;
+type DepositEntity = TornadoCash_ETH_Deposit_Chain_1 | TornadoCash_ETH_Deposit_Chain_5;
+type WithdrawalEntity = TornadoCash_ETH_Withdrawal_Chain_1 | TornadoCash_ETH_Withdrawal_Chain_5;
 
 // Generic handler function
 async function handleEvent(
@@ -38,9 +68,9 @@ async function handleEvent(
     if (chainId === 1) {
       context.TornadoCash_ETH_Deposit_Chain_1.set(entity as TornadoCash_ETH_Deposit_Chain_1);
     }
-    // else if (chainId === 2) {
-    //   context.TornadoCash_ETH_Deposit_Chain_2.set(entity as TornadoCash_ETH_Deposit_Chain_2);
-    // }
+    else if (chainId === 5) {
+      context.TornadoCash_ETH_Deposit_Chain_5.set(entity as TornadoCash_ETH_Deposit_Chain_5);
+    }
   } else {
     const entity: WithdrawalEntity = {
       ...baseEntity,
@@ -52,35 +82,58 @@ async function handleEvent(
     if (chainId === 1) {
       context.TornadoCash_ETH_Withdrawal_Chain_1.set(entity as TornadoCash_ETH_Withdrawal_Chain_1);
     }
-    // else if (chainId === 2) {
-    //   context.TornadoCash_ETH_Withdrawal_Chain_2.set(entity as TornadoCash_ETH_Withdrawal_Chain_2);
-    // }
+    else if (chainId === 5) {
+      context.TornadoCash_ETH_Withdrawal_Chain_5.set(entity as TornadoCash_ETH_Withdrawal_Chain_5);
+    }
   }
 }
 
-// Register handlers for ETH 0.1
-TornadoCash_ETH_0_1.Deposit.handler(async (args) => {
-  await handleEvent(args.event, args.context, "Deposit", "ETH","V_0_1");
-});
 
-TornadoCash_ETH_0_1.Withdrawal.handler(async (args) => {
-  await handleEvent(args.event, args.context, "Withdrawal", "ETH", "V_0_1");
-});
 
-// Register handlers for ETH 1
-TornadoCash_ETH_1.Deposit.handler(async (args) => {
-  await handleEvent(args.event, args.context, "Deposit", "ETH", "V_1");
-});
 
-TornadoCash_ETH_1.Withdrawal.handler(async (args) => {
-  await handleEvent(args.event, args.context, "Withdrawal", "ETH", "V_1");
-});
+type ContractDetails = {
+  contract: any;
+  currency: TornadoCashCurrency;
+  amount: TornadoCashAmount;
+};
 
-// Register handlers for DAI 100
-TornadoCash_DAI_100.Deposit.handler(async (args) => {
-  await handleEvent(args.event, args.context, "Deposit", "DAI", "V_100");
-});
+// Should be able to reuse the same endpoints for other network
+const contracts: ContractDetails[] = [
+  // NET1
+  { contract: TornadoCash_NET1_ETH_0_1, currency: "ETH", amount: "V_0_1" },
+  { contract: TornadoCash_NET1_ETH_1, currency: "ETH", amount: "V_1" },
+  { contract: TornadoCash_NET1_ETH_10, currency: "ETH", amount: "V_10" },
+  { contract: TornadoCash_NET1_ETH_100, currency: "ETH", amount: "V_100" },
+  { contract: TornadoCash_NET1_DAI_100, currency: "DAI", amount: "V_100" },
+  { contract: TornadoCash_NET1_DAI_1000, currency: "DAI", amount: "V_1000" },
+  { contract: TornadoCash_NET1_DAI_10000, currency: "DAI", amount: "V_10000" },
+  { contract: TornadoCash_NET1_DAI_100000, currency: "DAI", amount: "V_100000" },
+  { contract: TornadoCash_NET1_CDAI_5000, currency: "CDAI", amount: "V_5000" },
+  { contract: TornadoCash_NET1_CDAI_50000, currency: "CDAI", amount: "V_50000" },
+  { contract: TornadoCash_NET1_CDAI_500000, currency: "CDAI", amount: "V_500000" },
+  { contract: TornadoCash_NET1_CDAI_5000000, currency: "CDAI", amount: "V_5000000" },
+  { contract: TornadoCash_NET1_USDC_100, currency: "USDC", amount: "V_100" },
+  { contract: TornadoCash_NET1_USDC_1000, currency: "USDC", amount: "V_1000" },
+  { contract: TornadoCash_NET1_USDT_100, currency: "USDT", amount: "V_100" },
+  { contract: TornadoCash_NET1_USDT_1000, currency: "USDT", amount: "V_1000" },
+  { contract: TornadoCash_NET1_WBTC_0_1, currency: "WBTC", amount: "V_0_1" },
+  { contract: TornadoCash_NET1_WBTC_1, currency: "WBTC", amount: "V_1" },
+  { contract: TornadoCash_NET1_WBTC_10, currency: "WBTC", amount: "V_10" },
+  // NET5
+  { contract: TornadoCash_NET5_ETH_0_1, currency: "ETH", amount: "V_0_1" },
+  { contract: TornadoCash_NET5_ETH_1, currency: "ETH", amount: "V_1" },
+  { contract: TornadoCash_NET5_ETH_10, currency: "ETH", amount: "V_10" },
+  { contract: TornadoCash_NET5_ETH_100, currency: "ETH", amount: "V_100" },
+];
 
-TornadoCash_DAI_100.Withdrawal.handler(async (args) => {
-  await handleEvent(args.event, args.context, "Withdrawal", "DAI", "V_100");
+
+// Register handlers dynamically
+contracts.forEach(({ contract, currency, amount }) => {
+  contract.Deposit.handler(async (args: any) => {
+    await handleEvent(args.event, args.context, "Deposit", currency, amount);
+  });
+
+  contract.Withdrawal.handler(async (args: any) => {
+    await handleEvent(args.event, args.context, "Withdrawal", currency, amount);
+  });
 });

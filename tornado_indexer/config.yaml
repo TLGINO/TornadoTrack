@@ -4,23 +4,209 @@ networks:
 - id: 1
   start_block: 0
   contracts:
-  - name: TornadoCash_ETH_0_1
+  # ETH
+  - name: TornadoCash_NET1_ETH_0_1
     address:
     - 0x12D66f87A04A9E220743712cE6d9bB1B5616B8Fc
     handler: src/EventHandlers.ts
     events:
     - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
     - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
-  - name: TornadoCash_ETH_1
+  - name: TornadoCash_NET1_ETH_1
     address:
     - 0x47CE0C6eD5B0Ce3d3A51fdb1C52DC66a7c3c2936
     handler: src/EventHandlers.ts
     events:
     - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
     - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
-  - name: TornadoCash_DAI_100
+  - name: TornadoCash_NET1_ETH_10
+    address:
+    - 0x910Cbd523D972eb0a6f4cAe4618aD62622b39DbF
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET1_ETH_100
+    address:
+    - 0xA160cdAB225685dA1d56aa342Ad8841c3b53f291
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+
+  # -----
+  # DAI
+  # -----
+
+
+  - name: TornadoCash_NET1_DAI_100
     address:
     - 0xD4B88Df4D29F5CedD6857912842cff3b20C8Cfa3
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET1_DAI_1000
+    address:
+    - 0xFD8610d20aA15b7B2E3Be39B396a1bC3516c7144
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET1_DAI_10000
+    address:
+    - 0x07687e702b410Fa43f4cB4Af7FA097918ffD2730
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET1_DAI_100000
+    address:
+    - 0x23773E65ed146A459791799d01336DB287f25334
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+
+
+  # -----
+  # CDAI
+  # -----
+
+
+
+  - name: TornadoCash_NET1_CDAI_5000
+    address:
+    - 0x22aaA7720ddd5388A3c0A3333430953C68f1849b
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET1_CDAI_50000
+    address:
+    - 0x03893a7c7463AE47D46bc7f091665f1893656003
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET1_CDAI_500000
+    address:
+    - 0x2717c5e28cf931547B621a5dddb772Ab6A35B701
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET1_CDAI_5000000
+    address:
+    - 0xD21be7248e0197Ee08E0c20D4a96DEBdaC3D20Af
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+      
+
+
+  # -----
+  # USDC
+  # -----
+
+
+
+  - name: TornadoCash_NET1_USDC_100
+    address:
+    - 0xd96f2B1c14Db8458374d9Aca76E26c3D18364307
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET1_USDC_1000
+    address:
+    - 0x4736dCf1b7A3d580672CcE6E7c65cd5cc9cFBa9D
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+
+
+
+  # -----
+  # USDT
+  # -----
+
+
+
+  - name: TornadoCash_NET1_USDT_100
+    address:
+    - 0x169AD27A470D064DEDE56a2D3ff727986b15D52B
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET1_USDT_1000
+    address:
+    - 0x0836222F2B2B24A3F36f98668Ed8F0B38D1a872f
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+
+  # -----
+  # WBTC
+  # -----
+
+
+
+  - name: TornadoCash_NET1_WBTC_0_1
+    address:
+    - 0x178169B423a011fff22B9e3F3abeA13414dDD0F1
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET1_WBTC_1
+    address:
+    - 0x610B717796ad172B316836AC95a2ffad065CeaB4
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET1_WBTC_10
+    address:
+    - 0xbB93e510BbCD0B7beb5A853875f9eC60275CF498
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+      
+
+- id: 5
+  start_block: 0
+  contracts:
+  # ETH
+  - name: TornadoCash_NET5_ETH_0_1
+    address:
+    - 0x6Bf694a291DF3FeC1f7e69701E3ab6c592435Ae7
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET5_ETH_1
+    address:
+    - 0x3aac1cC67c2ec5Db4eA850957b967Ba153aD6279
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET5_ETH_10
+    address:
+    - 0x723B78e67497E85279CB204544566F4dC5d2acA0
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_NET5_ETH_100
+    address:
+    - 0x0E3A09dDA6B20aFbB34aC7cD4A6881493f3E7bf7
     handler: src/EventHandlers.ts
     events:
     - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
