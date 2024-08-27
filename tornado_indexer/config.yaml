@@ -4,12 +4,23 @@ networks:
 - id: 1
   start_block: 0
   contracts:
-  - name: TornadoCash_Eth_01
+  - name: TornadoCash_ETH_0_1
     address:
     - 0x12D66f87A04A9E220743712cE6d9bB1B5616B8Fc
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_ETH_1
+    address:
     - 0x47CE0C6eD5B0Ce3d3A51fdb1C52DC66a7c3c2936
-    - 0x910Cbd523D972eb0a6f4cAe4618aD62622b39DbF
-    - 0xA160cdAB225685dA1d56aa342Ad8841c3b53f291
+    handler: src/EventHandlers.ts
+    events:
+    - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
+    - event: Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)
+  - name: TornadoCash_DAI_100
+    address:
+    - 0xD4B88Df4D29F5CedD6857912842cff3b20C8Cfa3
     handler: src/EventHandlers.ts
     events:
     - event: Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)
