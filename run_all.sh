@@ -7,4 +7,4 @@ python3 manage.py makemigrations tornado_track
 python3 manage.py migrate tornado_track
 
 # Run the server
-python3 manage.py runserver 8080
+python3 manage.py runserver 8000

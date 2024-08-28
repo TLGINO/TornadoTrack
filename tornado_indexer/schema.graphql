@@ -27,163 +27,113 @@ enum TornadoCashCurrency {
 
 interface TornadoCashEvent {
   id: ID!
-}
-
-interface Deposit {
-  commitment: String!
-  leafIndex: BigInt!
-  timestamp: BigInt!
-}
-
-interface Withdrawal {
-  to: String!
-  nullifierHash: String!
-  relayer: String!
-  fee: BigInt!
-}
-
-type TornadoCash_ETH_Deposit_Chain_1 implements TornadoCashEvent & Deposit {
-  id: ID!
-  commitment: String!
-  leafIndex: BigInt!
   timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
 
-type TornadoCash_ETH_Withdrawal_Chain_1 implements TornadoCashEvent & Withdrawal {
+type TornadoCash_ETH_Deposit_Chain_1 implements TornadoCashEvent {
   id: ID!
-  to: String!
-  nullifierHash: String!
-  relayer: String!
-  fee: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-
-type TornadoCash_ETH_Deposit_Chain_5 implements TornadoCashEvent & Deposit {
-  id: ID!
-  commitment: String!
-  leafIndex: BigInt!
   timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
 
-type TornadoCash_ETH_Withdrawal_Chain_5 implements TornadoCashEvent & Withdrawal {
+type TornadoCash_ETH_Withdrawal_Chain_1 implements TornadoCashEvent {
   id: ID!
-  to: String!
-  nullifierHash: String!
-  relayer: String!
-  fee: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-type TornadoCash_ETH_Deposit_Chain_56 implements TornadoCashEvent & Deposit {
-  id: ID!
-  commitment: String!
-  leafIndex: BigInt!
   timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
 
-type TornadoCash_ETH_Withdrawal_Chain_56 implements TornadoCashEvent & Withdrawal {
+type TornadoCash_ETH_Deposit_Chain_5 implements TornadoCashEvent {
   id: ID!
-  to: String!
-  nullifierHash: String!
-  relayer: String!
-  fee: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-type TornadoCash_ETH_Deposit_Chain_100 implements TornadoCashEvent & Deposit {
-  id: ID!
-  commitment: String!
-  leafIndex: BigInt!
   timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
 
-type TornadoCash_ETH_Withdrawal_Chain_100 implements TornadoCashEvent & Withdrawal {
+type TornadoCash_ETH_Withdrawal_Chain_5 implements TornadoCashEvent {
   id: ID!
-  to: String!
-  nullifierHash: String!
-  relayer: String!
-  fee: BigInt!
+  timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
-type TornadoCash_ETH_Deposit_Chain_137 implements TornadoCashEvent & Deposit {
+type TornadoCash_ETH_Deposit_Chain_56 implements TornadoCashEvent {
   id: ID!
-  commitment: String!
-  leafIndex: BigInt!
   timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
 
-type TornadoCash_ETH_Withdrawal_Chain_137 implements TornadoCashEvent & Withdrawal {
+type TornadoCash_ETH_Withdrawal_Chain_56 implements TornadoCashEvent {
   id: ID!
-  to: String!
-  nullifierHash: String!
-  relayer: String!
-  fee: BigInt!
+  timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
-type TornadoCash_ETH_Deposit_Chain_42161 implements TornadoCashEvent & Deposit {
+type TornadoCash_ETH_Deposit_Chain_100 implements TornadoCashEvent {
   id: ID!
-  commitment: String!
-  leafIndex: BigInt!
   timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
 
-type TornadoCash_ETH_Withdrawal_Chain_42161 implements TornadoCashEvent & Withdrawal {
+type TornadoCash_ETH_Withdrawal_Chain_100 implements TornadoCashEvent {
   id: ID!
-  to: String!
-  nullifierHash: String!
-  relayer: String!
-  fee: BigInt!
+  timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
-type TornadoCash_ETH_Deposit_Chain_43114 implements TornadoCashEvent & Deposit {
+type TornadoCash_ETH_Deposit_Chain_137 implements TornadoCashEvent {
   id: ID!
-  commitment: String!
-  leafIndex: BigInt!
   timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
 
-type TornadoCash_ETH_Withdrawal_Chain_43114 implements TornadoCashEvent & Withdrawal {
+type TornadoCash_ETH_Withdrawal_Chain_137 implements TornadoCashEvent {
   id: ID!
-  to: String!
-  nullifierHash: String!
-  relayer: String!
-  fee: BigInt!
+  timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
-type TornadoCash_ETH_Deposit_Chain_10 implements TornadoCashEvent & Deposit {
+type TornadoCash_ETH_Deposit_Chain_42161 implements TornadoCashEvent {
   id: ID!
-  commitment: String!
-  leafIndex: BigInt!
   timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
 
-type TornadoCash_ETH_Withdrawal_Chain_10 implements TornadoCashEvent & Withdrawal {
+type TornadoCash_ETH_Withdrawal_Chain_42161 implements TornadoCashEvent {
   id: ID!
-  to: String!
-  nullifierHash: String!
-  relayer: String!
-  fee: BigInt!
+  timestamp: BigInt!
+  currency: TornadoCashCurrency!
+  amount: TornadoCashAmount!
+}
+type TornadoCash_ETH_Deposit_Chain_43114 implements TornadoCashEvent {
+  id: ID!
+  timestamp: BigInt!
+  currency: TornadoCashCurrency!
+  amount: TornadoCashAmount!
+}
+
+type TornadoCash_ETH_Withdrawal_Chain_43114 implements TornadoCashEvent {
+  id: ID!
+  timestamp: BigInt!
+  currency: TornadoCashCurrency!
+  amount: TornadoCashAmount!
+}
+type TornadoCash_ETH_Deposit_Chain_10 implements TornadoCashEvent {
+  id: ID!
+  timestamp: BigInt!
+  currency: TornadoCashCurrency!
+  amount: TornadoCashAmount!
+}
+
+type TornadoCash_ETH_Withdrawal_Chain_10 implements TornadoCashEvent {
+  id: ID!
+  timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }

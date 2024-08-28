@@ -53,13 +53,6 @@ import {
   TornadoCashAmount,
 } from "generated";
 
-type DepositEntity =
-  | TornadoCash_ETH_Deposit_Chain_1
-  | TornadoCash_ETH_Deposit_Chain_5;
-type WithdrawalEntity =
-  | TornadoCash_ETH_Withdrawal_Chain_1
-  | TornadoCash_ETH_Withdrawal_Chain_5;
-
 // Generic handler function
 async function handleEvent(
   event: any,
@@ -73,89 +66,15 @@ async function handleEvent(
     id: `${chainId}_${event.block.number}_${event.logIndex}`,
     currency,
     amount,
+    timestamp: event.block.timestamp,
   };
 
-  if (entityType === "Deposit") {
-    const entity: DepositEntity = {
-      ...baseEntity,
-      commitment: event.params.commitment,
-      leafIndex: event.params.leafIndex,
-      timestamp: event.params.timestamp,
-    };
-    if (chainId === 1) {
-      context.TornadoCash_ETH_Deposit_Chain_1.set(
-        entity as TornadoCash_ETH_Deposit_Chain_1
-      );
-    } else if (chainId === 5) {
-      context.TornadoCash_ETH_Deposit_Chain_5.set(
-        entity as TornadoCash_ETH_Deposit_Chain_5
-      );
-    } else if (chainId === 56) {
-      context.TornadoCash_ETH_Deposit_Chain_56.set(
-        entity as TornadoCash_ETH_Deposit_Chain_56
-      );
-    } else if (chainId === 100) {
-      context.TornadoCash_ETH_Deposit_Chain_100.set(
-        entity as TornadoCash_ETH_Deposit_Chain_100
-      );
-    } else if (chainId === 137) {
-      context.TornadoCash_ETH_Deposit_Chain_137.set(
-        entity as TornadoCash_ETH_Deposit_Chain_137
-      );
-    } else if (chainId === 42161) {
-      context.TornadoCash_ETH_Deposit_Chain_42161.set(
-        entity as TornadoCash_ETH_Deposit_Chain_42161
-      );
-    } else if (chainId === 43114) {
-      context.TornadoCash_ETH_Deposit_Chain_43114.set(
-        entity as TornadoCash_ETH_Deposit_Chain_43114
-      );
-    } else if (chainId === 10) {
-      context.TornadoCash_ETH_Deposit_Chain_10.set(
-        entity as TornadoCash_ETH_Deposit_Chain_10
-      );
-    }
-  } else {
-    const entity: WithdrawalEntity = {
-      ...baseEntity,
-      to: event.params.to,
-      nullifierHash: event.params.nullifierHash,
-      relayer: event.params.relayer,
-      fee: event.params.fee,
-    };
-    if (chainId === 1) {
-      context.TornadoCash_ETH_Withdrawal_Chain_1.set(
-        entity as TornadoCash_ETH_Withdrawal_Chain_1
-      );
-    } else if (chainId === 5) {
-      context.TornadoCash_ETH_Withdrawal_Chain_5.set(
-        entity as TornadoCash_ETH_Withdrawal_Chain_5
-      );
-    } else if (chainId === 56) {
-      context.TornadoCash_ETH_Withdrawal_Chain_56.set(
-        entity as TornadoCash_ETH_Withdrawal_Chain_56
-      );
-    } else if (chainId === 100) {
-      context.TornadoCash_ETH_Withdrawal_Chain_100.set(
-        entity as TornadoCash_ETH_Withdrawal_Chain_100
-      );
-    } else if (chainId === 137) {
-      context.TornadoCash_ETH_Withdrawal_Chain_137.set(
-        entity as TornadoCash_ETH_Withdrawal_Chain_137
-      );
-    } else if (chainId === 42161) {
-      context.TornadoCash_ETH_Withdrawal_Chain_42161.set(
-        entity as TornadoCash_ETH_Withdrawal_Chain_42161
-      );
-    } else if (chainId === 43114) {
-      context.TornadoCash_ETH_Withdrawal_Chain_43114.set(
-        entity as TornadoCash_ETH_Withdrawal_Chain_43114
-      );
-    } else if (chainId === 10) {
-      context.TornadoCash_ETH_Withdrawal_Chain_10.set(
-        entity as TornadoCash_ETH_Withdrawal_Chain_10
-      );
-    }
+  const entityKey = `TornadoCash_ETH_${entityType}_Chain_${chainId}`;
+
+  const entity = { ...baseEntity };
+
+  if (context[entityKey]) {
+    context[entityKey].set(entity);
   }
 }
 
