@@ -1,28 +1,66 @@
 <!-- HERE GOES MY CANVAS ELEMENT -->
 
-
-
 <div>
     <canvas id="myChart"></canvas>
 </div>
 
 <script>
-    const ctx = document.getElementById('myChart');
+    // Data passed from Django context
+    const data = {
+        amount: {{ result_dict.amount|safe }},
+        timestamp: {{ result_dict.timestamp|safe }},
+        count: {{ result_dict.count|safe }}
+    };
 
-    new Chart(ctx, {
+    // Get unique timestamps and amounts
+    const labels = [...new Set(data.timestamp)]; // Unique timestamps
+    const amountLabels = [...new Set(data.amount)]; // Unique amounts
+
+    // Generate a random colour for each amount label
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    // Initialize data structure for chart
+    const chartData = {
+        labels: labels,
+        datasets: amountLabels.map(amount => ({
+            label: amount,
+            data: labels.map(label => {
+                const index = data.timestamp.indexOf(label);
+                return data.count[index * amountLabels.length + amountLabels.indexOf(amount)] || 0;
+            }),
+            backgroundColor: getRandomColor(),
+            borderColor: '#333',
+            borderWidth: 1
+        }))
+    };
+
+    // Create chart
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
         type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
+        data: chartData,
         options: {
             scales: {
+                x: {
+                    stacked: true,
+                    title: {
+                        display: true,
+                        text: 'Timestamp'
+                    }
+                },
                 y: {
-                    beginAtZero: true
+                    stacked: true,
+                    title: {
+                        display: true,
+                        text: 'Count'
+                    }
                 }
             }
         }

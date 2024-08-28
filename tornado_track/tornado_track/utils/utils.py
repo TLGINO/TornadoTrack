@@ -10,7 +10,7 @@ def get_data_from_postgres_api():
     }
 
     query = DEPOSITS_QUERY
-    variables = {"chainId": 1, "currencyList": ["DAI"]}
+    variables = {"chainId": 1, "currencyList": ["ETH"]}
 
     response = requests.post(
         endpoint,

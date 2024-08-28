@@ -51,9 +51,9 @@ async function handleEvent(
   const baseEntity = {
     id: `${chainId}_${event.block.number}_${event.logIndex}`,
     chain: chainId,
+    timestamp: event.block.timestamp,
     currency,
     amount,
-    timestamp: event.block.timestamp,
   };
 
   const entityKey = `TornadoCash_ETH_${entityType}`;
