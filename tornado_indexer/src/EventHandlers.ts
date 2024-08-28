@@ -33,22 +33,8 @@ import {
   TornadoCash_MATIC_1000,
   TornadoCash_MATIC_10000,
   TornadoCash_MATIC_100000,
-  TornadoCash_ETH_Deposit_Chain_1,
-  TornadoCash_ETH_Withdrawal_Chain_1,
-  TornadoCash_ETH_Deposit_Chain_5,
-  TornadoCash_ETH_Withdrawal_Chain_5,
-  TornadoCash_ETH_Deposit_Chain_56,
-  TornadoCash_ETH_Withdrawal_Chain_56,
-  TornadoCash_ETH_Deposit_Chain_100,
-  TornadoCash_ETH_Withdrawal_Chain_100,
-  TornadoCash_ETH_Deposit_Chain_137,
-  TornadoCash_ETH_Withdrawal_Chain_137,
-  TornadoCash_ETH_Deposit_Chain_42161,
-  TornadoCash_ETH_Withdrawal_Chain_42161,
-  TornadoCash_ETH_Deposit_Chain_43114,
-  TornadoCash_ETH_Withdrawal_Chain_43114,
-  TornadoCash_ETH_Deposit_Chain_10,
-  TornadoCash_ETH_Withdrawal_Chain_10,
+  TornadoCash_ETH_Deposit,
+  TornadoCash_ETH_Withdrawal,
   TornadoCashCurrency,
   TornadoCashAmount,
 } from "generated";
@@ -64,12 +50,13 @@ async function handleEvent(
   const chainId = event.chainId;
   const baseEntity = {
     id: `${chainId}_${event.block.number}_${event.logIndex}`,
+    chain: chainId,
     currency,
     amount,
     timestamp: event.block.timestamp,
   };
 
-  const entityKey = `TornadoCash_ETH_${entityType}_Chain_${chainId}`;
+  const entityKey = `TornadoCash_ETH_${entityType}`;
 
   const entity = { ...baseEntity };
 

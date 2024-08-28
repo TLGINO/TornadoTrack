@@ -1,20 +1,21 @@
 import requests
+from tornado_track.utils.queries import DEPOSITS_QUERY  # , WITHDRAWALS_QUERY
 
 
-def get_data_from_postgres_api(endpoint):
-    url = f"http://localhost:8080/api/rest/{endpoint}"
+def get_data_from_postgres_api():
+    endpoint = "http://localhost:8080/v1/graphql"
     headers = {
         "Authorization": "testing",
         "Content-Type": "application/json",
     }
 
-    try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
+    query = DEPOSITS_QUERY
+    variables = {"chainId": 1, "currencyList": ["DAI"]}
 
-        data = response.json()
-        return data
-
-    except requests.exceptions.RequestException as e:
-        print(f"Error querying PostgreSQL API: {e}")
-        return None
+    response = requests.post(
+        endpoint,
+        json={"query": query, "variables": variables},
+        headers=headers,
+    )
+    response.raise_for_status()
+    return response.json()

@@ -27,112 +27,23 @@ enum TornadoCashCurrency {
 
 interface TornadoCashEvent {
   id: ID!
+  chain: Int!
   timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
 
-type TornadoCash_ETH_Deposit_Chain_1 implements TornadoCashEvent {
+type TornadoCash_ETH_Deposit implements TornadoCashEvent {
   id: ID!
+  chain: Int!
   timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
 }
 
-type TornadoCash_ETH_Withdrawal_Chain_1 implements TornadoCashEvent {
+type TornadoCash_ETH_Withdrawal implements TornadoCashEvent {
   id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-
-type TornadoCash_ETH_Deposit_Chain_5 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-
-type TornadoCash_ETH_Withdrawal_Chain_5 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-type TornadoCash_ETH_Deposit_Chain_56 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-
-type TornadoCash_ETH_Withdrawal_Chain_56 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-type TornadoCash_ETH_Deposit_Chain_100 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-
-type TornadoCash_ETH_Withdrawal_Chain_100 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-type TornadoCash_ETH_Deposit_Chain_137 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-
-type TornadoCash_ETH_Withdrawal_Chain_137 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-type TornadoCash_ETH_Deposit_Chain_42161 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-
-type TornadoCash_ETH_Withdrawal_Chain_42161 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-type TornadoCash_ETH_Deposit_Chain_43114 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-
-type TornadoCash_ETH_Withdrawal_Chain_43114 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-type TornadoCash_ETH_Deposit_Chain_10 implements TornadoCashEvent {
-  id: ID!
-  timestamp: BigInt!
-  currency: TornadoCashCurrency!
-  amount: TornadoCashAmount!
-}
-
-type TornadoCash_ETH_Withdrawal_Chain_10 implements TornadoCashEvent {
-  id: ID!
+  chain: Int!
   timestamp: BigInt!
   currency: TornadoCashCurrency!
   amount: TornadoCashAmount!
