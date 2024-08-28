@@ -9,10 +9,7 @@ urlpatterns = [
         "",
         views.main,
     ),
-    path(
-        "mainnet",
-        views.main,
-    ),
+    path("mainnet", views.main, name="main"),
     path(
         "optimism",
         views.main,

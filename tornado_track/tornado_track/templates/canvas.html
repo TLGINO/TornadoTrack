@@ -1,66 +1,80 @@
-<!-- HERE GOES MY CANVAS ELEMENT -->
-
-<div>
+<!-- Chart Canvas Element -->
+<div style="max-width: 800px; margin: auto;">
     <canvas id="myChart"></canvas>
 </div>
 
 <script>
-    // Data passed from Django context
+    const resultDict = {{ result_dict|safe }};
+    
+    
     const data = {
-        amount: {{ result_dict.amount|safe }},
-        timestamp: {{ result_dict.timestamp|safe }},
-        count: {{ result_dict.count|safe }}
+        amount: Object.values(resultDict.amount),
+        timestamp: Object.values(resultDict.timestamp),
+        count: Object.values(resultDict.count)
     };
 
-    // Get unique timestamps and amounts
-    const labels = [...new Set(data.timestamp)]; // Unique timestamps
-    const amountLabels = [...new Set(data.amount)]; // Unique amounts
+    const labels = [...new Set(data.timestamp)];
+    const amountLabels = [...new Set(data.amount)];
 
-    // Generate a random colour for each amount label
-    function getRandomColor() {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
+    const colours = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'];
 
-    // Initialize data structure for chart
     const chartData = {
         labels: labels,
-        datasets: amountLabels.map(amount => ({
-            label: amount,
+        datasets: amountLabels.map((amount, index) => ({
+            label: `${amount} ETH`,
             data: labels.map(label => {
-                const index = data.timestamp.indexOf(label);
-                return data.count[index * amountLabels.length + amountLabels.indexOf(amount)] || 0;
+                const indices = data.timestamp.map((timestamp, i) => {
+                    return data.amount[i] === amount && timestamp === label ? i : null;
+                }).filter(i => i !== null);
+                
+                return indices.length > 0 ? data.count[indices[0]] : 0;
             }),
-            backgroundColor: getRandomColor(),
-            borderColor: '#333',
-            borderWidth: 1
+            backgroundColor: colours[index % colours.length],
+            borderColor: colours[index % colours.length],
+            borderWidth: 1,
+            barThickness: 1
         }))
     };
 
-    // Create chart
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: chartData,
         options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Tornado Cash ETH Deposits Over Time'
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                legend: {
+                    position: 'top',
+                }
+            },
+            interaction: {
+                mode: 'nearest',
+                axis: 'x',
+                intersect: false
+            },
             scales: {
                 x: {
                     stacked: true,
                     title: {
                         display: true,
-                        text: 'Timestamp'
-                    }
+                        text: 'Date'
+                    },
                 },
                 y: {
                     stacked: true,
                     title: {
                         display: true,
-                        text: 'Count'
-                    }
+                        text: 'Number of Deposits'
+                    },
+                    beginAtZero: true
                 }
             }
         }

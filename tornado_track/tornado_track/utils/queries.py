@@ -1,9 +1,9 @@
 DEPOSITS_QUERY = """
-query ($chainId: Int!, $currencyList: [tornadocashcurrency!]!) {
+query ($chainId: Int!, $desiredCurrency: tornadocashcurrency!) {
   TornadoCash_ETH_Deposit(
     where: {
       chain: { _eq: $chainId },
-      currency: { _in: $currencyList }
+      currency: { _eq: $desiredCurrency }
     }
   ) {
     amount
@@ -15,11 +15,11 @@ query ($chainId: Int!, $currencyList: [tornadocashcurrency!]!) {
 
 
 WITHDRAWALS_QUERY = """
-query ($chainId: Int!, $currencyList: [tornadocashcurrency!]!) {
+query ($chainId: Int!, $desiredCurrency: tornadocashcurrency!) {
   TornadoCash_ETH_Withdrawal(
     where: {
       chain: { _eq: $chainId },
-      currency: { _in: $currencyList }
+      currency: { _eq: $desiredCurrency }
     }
   ) {
     amount
