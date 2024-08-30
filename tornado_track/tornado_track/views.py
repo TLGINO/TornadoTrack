@@ -1,5 +1,5 @@
 from datetime import datetime
-
+import json
 import pandas as pd
 from django.shortcuts import render
 
@@ -11,11 +11,15 @@ def transform_timestamp(timestamp):
 
 
 def main(request):
-    chain_id = request.GET.get("id", 1)
-    desired_currency = request.GET.get("currency", "ETH")
-    print(f"Chain ID: {chain_id} \nCurrency: {desired_currency}")
+    # [TODO] remove this
+    get_load_other_chains()
+    return render(request, "index.html", {})
 
-    data_deposit = get_data_from_postgres_api(chain_id, desired_currency)
+    chain_id = request.GET.get("id", 1)
+    currency = request.GET.get("currency", "ETH")
+    print(f"Chain ID: {chain_id} \nCurrency: {currency}")
+
+    data_deposit = get_data_from_postgres_api(chain_id, currency)
     data_deposit_ls = data_deposit["data"]["TornadoCash_ETH_Deposit"]
 
     df = pd.DataFrame(data_deposit_ls)
@@ -65,5 +69,12 @@ def main(request):
 
     data = {
         "result_dict": result_dict,
+        "currency": currency,
     }
     return render(request, "index.html", data)
+
+
+def get_load_other_chains():
+    with open("tornado_track/cryptos.json") as f:
+        data = json.load(f)
+        print(data)

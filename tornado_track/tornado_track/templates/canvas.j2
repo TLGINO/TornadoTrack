@@ -1,7 +1,11 @@
 <!-- Chart Canvas Element -->
-<div style="max-width: 800px; margin: auto;">
+<div width="1596" height="796" style="max-width: 800px; margin: auto;">
     <canvas id="myChart"></canvas>
 </div>
+
+<!--
+<canvas id="myChart" width="1596" height="796" style="display: block; box-sizing: border-box; height: 398px; width: 798px;"></canvas>
+-->
 
 <script>
     const resultDict = {{ result_dict|safe }};
@@ -21,7 +25,7 @@
     const chartData = {
         labels: labels,
         datasets: amountLabels.map((amount, index) => ({
-            label: `${amount} ETH`,
+            label: `${amount} {{currency}}`,
             data: labels.map(label => {
                 const indices = data.timestamp.map((timestamp, i) => {
                     return data.amount[i] === amount && timestamp === label ? i : null;
@@ -45,7 +49,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Tornado Cash ETH Deposits Over Time'
+                    text: 'Tornado Cash {{currency}} Deposits Over Time'
                 },
                 tooltip: {
                     mode: 'index',
@@ -65,7 +69,6 @@
                     stacked: true,
                     title: {
                         display: true,
-                        text: 'Date'
                     },
                 },
                 y: {

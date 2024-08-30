@@ -1,3 +1,97 @@
+@font-face {
+  font-family: "PT-Mono";
+  src: url("./fonts/PTMono-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --primary: #94febf; /* Light Green */
+  --primary-invert: #000403; /* Almost Black */
+  --warning: #ff8a00; /* Bright Orange */
+  --danger: #ff0658; /* Bright Pink/Red */
+  --dark: #171717; /* Dark Grey */
+  --white: #eee; /* Light Grey */
+  --black: #2c4538; /* Deep Green */
+  --violet: #865ff3; /* Violet */
+  --gray: #6b6b6b; /* Medium Grey */
+  --dark-tooltip: #313131; /* Dark Grey */
+}
+
 * {
-  border: 1px solid red;
+  font-family: "PT-Mono", monospace;
+  /* border: 1px solid red; */
+  background-color: var(--primary-invert);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.navbar a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+li {
+  float: none; /* Remove float */
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 20px; /* Space between the logo and the nav links */
+}
+
+/* Select network stuff */
+
+.networks,
+.cryptos {
+  padding: 10px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.item:hover {
+  background-color: #f0f0f0;
+}
+
+.item.is-active {
+  background-color: #e6f7ff;
+}
+
+.network-checkbox,
+.crypto-checkbox {
+  margin-left: auto;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #999;
+  border-radius: 50%;
+}
+
+.item.is-active .network-checkbox,
+.item.is-active .crypto-checkbox {
+  background-color: #1890ff;
+  border-color: #1890ff;
 }

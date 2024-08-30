@@ -1,0 +1,92 @@
+{% load static %}
+
+
+<div>
+    <div class="box-modal">
+        <header>
+            <p>Change Network and Cryptocurrency</p>
+        </header>
+        <div class="networks" id="networkList"></div>
+        <div class="cryptos" id="cryptoList"></div>
+    </div>
+
+    <script>
+        const chainData = {
+            "5": {
+                "ETH": ["V_1", "V_10", "V_100", "V_0_1"],
+                "DAI": ["V_100", "V_1000", "V_10000", "V_100000"],
+                "CDAI": ["V_5000", "V_50000", "V_500000", "V_5000000"],
+                "USDC": ["V_100", "V_1000"],
+                "USDT": ["V_100", "V_1000"],
+                "WBTC": ["V_1", "V_10", "V_0_1"]
+            },
+            "56": {
+                "BNB": ["V_1", "V_10", "V_100", "V_0_1"]
+            }
+        };
+
+        const networkNames = {
+            "5": "Ethereum Goerli",
+            "56": "Binance Smart Chain"
+        };
+
+        let selectedNetwork = null;
+        let selectedCrypto = null;
+
+        function renderNetworks() {
+            const networkList = document.getElementById('networkList');
+            networkList.innerHTML = '<h3>Select Network</h3>';
+
+            for (const chainId in chainData) {
+                const networkItem = document.createElement('div');
+                networkItem.className = `item${selectedNetwork === chainId ? ' is-active' : ''}`;
+                networkItem.onclick = () => setNetwork(chainId);
+                // <img class="network-icon" src="{% static '/img/${networkNames[chainId].toLowerCase().replace(' ', '-')}.svg' %}" alt="${networkNames[chainId]}">
+                networkItem.innerHTML = `
+                <img class="network-icon" src="{% static '/img/ethereum.svg' %}" alt="${networkNames[chainId]}" width=20>
+                <b>${networkNames[chainId]}</b>
+                    <span class="network-checkbox"></span>
+                `;
+                networkList.appendChild(networkItem);
+            }
+        }
+
+        function renderCryptos() {
+            const cryptoList = document.getElementById('cryptoList');
+            cryptoList.innerHTML = '<h3>Select Cryptocurrency</h3>';
+
+            if (selectedNetwork) {
+                for (const crypto in chainData[selectedNetwork]) {
+                    const cryptoItem = document.createElement('div');
+                    cryptoItem.className = `item${selectedCrypto === crypto ? ' is-active' : ''}`;
+                    cryptoItem.onclick = () => setCrypto(crypto);
+                    cryptoItem.innerHTML = `
+                        <img class="crypto-icon" src="{% static '/img/${crypto.toLowerCase()}.svg' %}" alt="${crypto}">
+                        <b>${crypto}</b>
+                        <span class="crypto-checkbox"></span>
+                    `;
+                    cryptoList.appendChild(cryptoItem);
+                }
+            } else {
+                cryptoList.innerHTML += '<p>Please select a network first</p>';
+            }
+        }
+
+        function setNetwork(chainId) {
+            selectedNetwork = chainId;
+            selectedCrypto = null;
+            renderNetworks();
+            renderCryptos();
+        }
+
+        function setCrypto(crypto) {
+            selectedCrypto = crypto;
+            renderCryptos();
+            console.log(`Selected Network: ${selectedNetwork}, Crypto: ${selectedCrypto}`);
+        }
+
+        // Initial render
+        renderNetworks();
+        renderCryptos();
+    </script>
+</div>
