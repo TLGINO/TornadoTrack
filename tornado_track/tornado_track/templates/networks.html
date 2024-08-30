@@ -1,7 +1,7 @@
 {% load static %}
 
 
-<div>
+<div style="width: 300px">
     <div class="box-modal">
         <header>
             <p>Change Network and Cryptocurrency</p>
@@ -11,27 +11,63 @@
     </div>
 
     <script>
-        const chainData = {
-            "5": {
-                "ETH": ["V_1", "V_10", "V_100", "V_0_1"],
-                "DAI": ["V_100", "V_1000", "V_10000", "V_100000"],
-                "CDAI": ["V_5000", "V_50000", "V_500000", "V_5000000"],
-                "USDC": ["V_100", "V_1000"],
-                "USDT": ["V_100", "V_1000"],
-                "WBTC": ["V_1", "V_10", "V_0_1"]
-            },
-            "56": {
-                "BNB": ["V_1", "V_10", "V_100", "V_0_1"]
-            }
-        };
-
-        const networkNames = {
-            "5": "Ethereum Goerli",
-            "56": "Binance Smart Chain"
-        };
-
         let selectedNetwork = null;
         let selectedCrypto = null;
+        var chainData;
+        var networkNames;
+        fetch('/cryptos')
+            .then(response => response.json())
+            .then(data => {
+                // Process the data received from the server
+
+                // Create networkNames dynamically from the data
+                networkNames = Object.keys(data).reduce((names, networkId) => {
+                    switch (networkId) {
+                        case "1":
+                            names[networkId] = ["Ethereum Mainnet", "ethereum"];
+                            break;
+                        case "5":
+                            names[networkId] = ["Ethereum Goerli", "goerli"];
+                            break;
+                        case "56":
+                            names[networkId] = ["Binance Smart Chain", "binance"];
+                            break;
+                        case "100":
+                            names[networkId] = ["Gnosis Chain", "gnosis"];
+                            break;
+                        case "137":
+                            names[networkId] = ["Polygon (Matic) Network", "polygon"];
+                            break;
+                        case "42161":
+                            names[networkId] = ["Arbitrum One", "arbitrum"];
+                            break;
+                        case "43114":
+                            names[networkId] = ["Avalanche Mainnet", "avalanche"];
+                            break;
+                        case "10":
+                            names[networkId] = ["Optimism", "optimism"];
+                            break;
+                        // Add more mappings as needed
+                        default:
+                            names[networkId] = ["Unknown Network", "unknown network"];
+                    }
+                    return names;
+                }, {});
+
+                // Assign chainData directly from data
+                chainData = data;
+
+                // Example usage
+                console.log('Network Names:', networkNames);
+                console.log('Chain Data:', chainData);
+                renderNetworks();
+                renderCryptos();
+            })
+            .catch(error => {
+                // Handle any errors that occur during the request
+                console.error('Error fetching data:', error);
+            });
+
 
         function renderNetworks() {
             const networkList = document.getElementById('networkList');
@@ -39,12 +75,17 @@
 
             for (const chainId in chainData) {
                 const networkItem = document.createElement('div');
-                networkItem.className = `item${selectedNetwork === chainId ? ' is-active' : ''}`;
-                networkItem.onclick = () => setNetwork(chainId);
-                // <img class="network-icon" src="{% static '/img/${networkNames[chainId].toLowerCase().replace(' ', '-')}.svg' %}" alt="${networkNames[chainId]}">
+                let net_name = networkNames[chainId][0];
+                let svg_name = networkNames[chainId][1];
+                networkItem.className = `item${selectedNetwork === chainId[0] ? ' is-active' : ''}`;
+                networkItem.onclick = () => setNetwork(chainId[0]);
+                const imageUrl = `/static/img/icons/${svg_name}.svg`;
+
+                console.log("HERE SVG", svg_name);
+
                 networkItem.innerHTML = `
-                <img class="network-icon" src="{% static '/img/ethereum.svg' %}" alt="${networkNames[chainId]}" width=20>
-                <b>${networkNames[chainId]}</b>
+                    <img class="network-icon" src="${imageUrl}" alt="${net_name}" width=20>
+                    <b>${net_name}</b>
                     <span class="network-checkbox"></span>
                 `;
                 networkList.appendChild(networkItem);
@@ -60,8 +101,9 @@
                     const cryptoItem = document.createElement('div');
                     cryptoItem.className = `item${selectedCrypto === crypto ? ' is-active' : ''}`;
                     cryptoItem.onclick = () => setCrypto(crypto);
+                    // <img class="crypto-icon" src="{% static '/img/${crypto.toLowerCase()}.svg' %}" alt="${crypto}">
                     cryptoItem.innerHTML = `
-                        <img class="crypto-icon" src="{% static '/img/${crypto.toLowerCase()}.svg' %}" alt="${crypto}">
+                        <img class="crypto-icon" src="{% static '/img/ethereum.svg' %}" alt="${crypto}" width=20>
                         <b>${crypto}</b>
                         <span class="crypto-checkbox"></span>
                     `;
@@ -82,10 +124,8 @@
         function setCrypto(crypto) {
             selectedCrypto = crypto;
             renderCryptos();
-            console.log(`Selected Network: ${selectedNetwork}, Crypto: ${selectedCrypto}`);
         }
 
-        // Initial render
         renderNetworks();
         renderCryptos();
     </script>

@@ -4,6 +4,7 @@ import pandas as pd
 from django.shortcuts import render
 
 from tornado_track.utils.utils import get_data_from_postgres_api
+from django.http import JsonResponse
 
 
 def transform_timestamp(timestamp):
@@ -12,7 +13,6 @@ def transform_timestamp(timestamp):
 
 def main(request):
     # [TODO] remove this
-    get_load_other_chains()
     return render(request, "index.html", {})
 
     chain_id = request.GET.get("id", 1)
@@ -74,7 +74,8 @@ def main(request):
     return render(request, "index.html", data)
 
 
-def get_load_other_chains():
+def get_all_chains(request):
     with open("tornado_track/cryptos.json") as f:
         data = json.load(f)
-        print(data)
+        return JsonResponse(data)
+    return JsonResponse({})

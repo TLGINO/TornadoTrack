@@ -14,4 +14,5 @@ urlpatterns = [
         "optimism",
         views.main,
     ),
+    path("cryptos", views.get_all_chains, name="cryptos"),
 ]
