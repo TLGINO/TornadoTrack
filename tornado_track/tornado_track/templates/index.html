@@ -1,13 +1,12 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 {% include 'header.html' %}
 
 
 <body>
-
     <div class="navbar">
         <a href="/">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 40" width="250" height="45">
@@ -18,26 +17,38 @@
             </svg>
         </a>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Settings</a></li>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    Select Network
+                </button>
+                <div class="dropdown-content" id="networkList">
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">
+                    Select Crypto
+                </button>
+                <div class="dropdown-content" id="cryptoList">
+                </div>
+            </div>
         </ul>
     </div>
 
 
 
 
-    {% include 'networks.html' %}
 
 
+    <div class="main-content">
+        <div class="canvas-container">
+            {% include 'canvas.j2' %}
+        </div>
+    </div>
 
+    <footer></footer>
 
-
-    {% include 'canvas.j2' %}
-    <footer>
-        This is a footer
-    </footer>
+    <script src="{% static 'js/network_crypto_selector.js' %}"></script>
 </body>
-
-
 
 </html>

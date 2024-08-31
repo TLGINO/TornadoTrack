@@ -27,13 +27,15 @@
 .navbar {
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding-right: 100px;
+  width: 100%;
 }
 
 .navbar a {
   display: flex;
   align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 ul {
@@ -41,17 +43,7 @@ ul {
   margin: 0;
   padding: 0;
   display: flex;
-}
-
-li {
-  float: none; /* Remove float */
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
+  width: 100%;
 }
 
 .logo {
@@ -61,24 +53,19 @@ li a {
 
 /* Select network stuff */
 
-.networks,
-.cryptos {
-  padding: 10px;
+.network-tab {
+  display: flex;
+  margin: 10px;
+  align-items: flex-start;
+  gap: 30px;
 }
 
 .item {
+  border: 1px solid var(--primary);
   display: flex;
   align-items: center;
   padding: 10px;
   cursor: pointer;
-}
-
-.item:hover {
-  background-color: #f0f0f0;
-}
-
-.item.is-active {
-  background-color: #e6f7ff;
 }
 
 .network-checkbox,
@@ -92,6 +79,43 @@ li a {
 
 .item.is-active .network-checkbox,
 .item.is-active .crypto-checkbox {
-  background-color: #1890ff;
-  border-color: #1890ff;
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.network-icon {
+  padding: 10px;
+}
+
+.network-bold {
+  color: var(--white);
+  padding-right: 10px;
+}
+.dropdown {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.dropbtn {
+  width: 100%;
+  color: var(--primary);
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--primary-invert);
+  color: var(--white);
+  z-index: 1;
+  width: 100%;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }

@@ -12,12 +12,12 @@ def transform_timestamp(timestamp):
 
 
 def main(request):
-    # [TODO] remove this
-    return render(request, "index.html", {})
 
     chain_id = request.GET.get("id", 1)
     currency = request.GET.get("currency", "ETH")
     print(f"Chain ID: {chain_id} \nCurrency: {currency}")
+    # [TODO] remove this
+    # return render(request, "index.html", {})
 
     data_deposit = get_data_from_postgres_api(chain_id, currency)
     data_deposit_ls = data_deposit["data"]["TornadoCash_ETH_Deposit"]
