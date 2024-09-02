@@ -1,5 +1,6 @@
-let selectedNetwork = null;
-let selectedCrypto = null;
+const urlParams = new URLSearchParams(window.location.search);
+let selectedNetwork = urlParams.get("id") || "1";
+let selectedCrypto = urlParams.get("currency") || "ETH";
 var chainData;
 var networkNames;
 
@@ -100,6 +101,7 @@ function setNetwork(chainId) {
 
 function setCrypto(crypto) {
   selectedCrypto = crypto;
+
   renderCryptos();
 
   window.location.href = `/?id=${selectedNetwork}&currency=${selectedCrypto}`;

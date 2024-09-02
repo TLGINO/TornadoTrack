@@ -1,0 +1,23 @@
+{% load static %}
+
+
+<div width="1596" height="796" style="max-width: 800px; margin: auto;">
+    <canvas id="depositChart">
+</div>
+
+<br>
+
+<div width="1596" height="796" style="max-width: 800px; margin: auto;">
+    <canvas id="withdrawalChart">
+</div>
+
+
+
+
+{{ currency|json_script:"currency" }}
+{{ chain_id|json_script:"chain_id" }}
+{{ data_deposit|json_script:"data_deposit" }}
+{{ data_withdrawal|json_script:"data_withdrawal" }}
+
+
+<script src="{% static 'js/render_charts.js' %}"></script>
