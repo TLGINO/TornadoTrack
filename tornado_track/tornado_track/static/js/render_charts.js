@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const data_deposit = JSON.parse(
     document.getElementById("data_deposit").textContent
   );
-  console.log(data_deposit);
   const data_withdrawal = JSON.parse(
     document.getElementById("data_withdrawal").textContent
   );
@@ -23,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function getChain(chain_id) {
-  console.log(chain_id);
   let chain;
 
   switch (chain_id) {

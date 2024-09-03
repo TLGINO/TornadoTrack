@@ -42,3 +42,25 @@ def get_data_from_postgres_api(chain_id, desired_currency, query):
     )
     response.raise_for_status()
     return response.json()
+
+
+def format_time_ago(td):
+    if td.days > 0:
+        if td.days == 1:
+            return f"{td.days} day ago"
+        else:
+            return f"{td.days} days ago"
+    elif td.seconds > 3600:
+        hours = td.seconds // 3600
+        if hours == 1:
+            return f"{hours} hour ago"
+        else:
+            return f"{hours} hours ago"
+    elif td.seconds > 60:
+        minutes = td.seconds // 60
+        if minutes == 1:
+            return f"{minutes} minute ago"
+        else:
+            return f"{minutes} minutes ago"
+    else:
+        return "Just now"

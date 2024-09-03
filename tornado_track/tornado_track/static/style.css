@@ -24,6 +24,10 @@
   background-color: var(--primary-invert);
 }
 
+h3 {
+  color: var(--primary);
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -38,7 +42,7 @@
   flex-shrink: 0;
 }
 
-ul {
+.nav-ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -50,7 +54,33 @@ ul {
   height: 40px;
   margin-right: 20px; /* Space between the logo and the nav links */
 }
+.transactions-li {
+  list-style-type: none;
+  color: var(--white);
+  margin: 0 10px 10px 10px;
+}
 
+.transaction-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 30px;
+}
+
+.chart-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 800px;
+  height: auto;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}
 /* Select network stuff */
 
 .network-tab {

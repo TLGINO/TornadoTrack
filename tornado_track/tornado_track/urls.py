@@ -15,4 +15,5 @@ urlpatterns = [
         views.main,
     ),
     path("cryptos", views.get_all_chains, name="cryptos"),
+    path("test", views.test, name="test"),
 ]
