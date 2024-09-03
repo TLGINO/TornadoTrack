@@ -1,0 +1,11 @@
+[Unit]
+Description=Envio HyperIndex Service
+After=network.target
+
+[Service]
+WorkingDirectory=/home/martin/Documents/TornadoTrack/tornado_indexer
+ExecStart=/usr/bin/sh /home/martin/Documents/TornadoTrack/tornado_indexer/start_indexer.sh
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
