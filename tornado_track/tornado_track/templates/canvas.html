@@ -4,7 +4,7 @@
 
 <div class="transaction-flex">
     <ul>
-        <h3>Latest deposits:</h3>
+        <h4>Latest deposits:</h4>
         {% for item in data_deposit_latest %}
         <li class="transactions-li">{{ item.amount }} {{ item.currency }} {{ item.timestamp }}</li>
         {% endfor %}
@@ -19,7 +19,6 @@
         <canvas id="pieChart"></canvas>
         <h5 id="total-stored">Total Stored:</h5>
         <h5 id="total-stored-usd">Value in USD:</h5>
-
     </div>
 
 
@@ -30,7 +29,7 @@
 
 <div class="transaction-flex">
     <ul>
-        <h3>Latest withdrawals:</h3>
+        <h4>Latest withdrawals:</h4>
         {% for item in data_deposit_latest %}
         <li class="transactions-li">{{ item.amount }} {{ item.currency }} {{ item.timestamp }}</li>
         {% endfor %}

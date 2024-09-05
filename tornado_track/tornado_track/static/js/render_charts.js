@@ -11,13 +11,26 @@ document.addEventListener("DOMContentLoaded", function () {
   );
   const chain_id = JSON.parse(document.getElementById("chain_id").textContent);
 
-  renderChart(depositCanvas, data_deposit, "Deposit", currency, chain_id);
+  console.log("DATA DEPOSIT", data_deposit);
+  console.log("DATA WITHDRAWAL", data_withdrawal);
+
+  const period = "month"; // day, week, month
+
+  renderChart(
+    depositCanvas,
+    data_deposit,
+    "Deposit",
+    currency,
+    chain_id,
+    period
+  );
   renderChart(
     withdrawalCanvas,
     data_withdrawal,
     "Withdrawal",
     currency,
-    chain_id
+    chain_id,
+    period
   );
 });
 
@@ -54,23 +67,22 @@ function getChain(chain_id) {
   }
   return chain;
 }
-
-function renderChart(canvas, data, tornado_action, currency, chain_id) {
+function renderChart(canvas, data, tornado_action, currency, chain_id, period) {
   const chain = getChain(chain_id);
   const colours = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"];
-  const datasets = Object.entries(data.datasets).map(
-    ([amount, value], index) => ({
-      label: `${amount} ${currency}`,
-      data: value.counts,
-      backgroundColor: colours[index % colours.length],
-      borderColor: colours[index % colours.length],
-      borderWidth: 1,
-      barThickness: 1,
-    })
-  );
+
+  const aggregatedData = aggregateData(data, period, currency, colours);
+  const datasets = aggregatedData.datasets.map((dataset, index) => ({
+    label: dataset.label,
+    data: dataset.data,
+    backgroundColor: dataset.backgroundColor,
+    borderColor: dataset.borderColor,
+    borderWidth: dataset.borderWidth,
+    barThickness: dataset.barThickness,
+  }));
 
   const chartData = {
-    labels: data.labels,
+    labels: aggregatedData.labels,
     datasets: datasets,
   };
 
@@ -103,6 +115,7 @@ function renderChart(canvas, data, tornado_action, currency, chain_id) {
           stacked: true,
           title: {
             display: true,
+            text: `Time (${period})`,
           },
         },
         y: {
@@ -116,4 +129,74 @@ function renderChart(canvas, data, tornado_action, currency, chain_id) {
       },
     },
   });
+}
+
+function aggregateData(data, period, currency, colours) {
+  const aggregated = {};
+  const datasetKeys = Object.keys(data.datasets);
+
+  // Helper function to get the start of the week
+  function getStartOfWeek(date) {
+    const d = new Date(date);
+    d.setDate(d.getDate() - d.getDay());
+    return d.toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+  }
+
+  // Helper function to format the date
+  function formatDate(date, format) {
+    switch (format) {
+      case "day":
+        return new Date(date).toLocaleDateString("en-GB", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        });
+      case "week":
+        return getStartOfWeek(date);
+      case "month":
+        return new Date(date).toLocaleDateString("en-GB", {
+          year: "numeric",
+          month: "2-digit",
+        });
+      default:
+        return new Date(date).toLocaleDateString("en-GB", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        });
+    }
+  }
+
+  // Initialise aggregation for each dataset
+  datasetKeys.forEach((key) => {
+    const dataset = data.datasets[key];
+    if (!Array.isArray(dataset.counts)) {
+      console.error("Invalid dataset format: dataset.counts is not an array");
+      return;
+    }
+    data.labels.forEach((label, index) => {
+      const periodLabel = formatDate(label, period);
+      if (!aggregated[periodLabel]) {
+        aggregated[periodLabel] = new Array(datasetKeys.length).fill(0);
+      }
+      aggregated[periodLabel][datasetKeys.indexOf(key)] +=
+        dataset.counts[index];
+    });
+  });
+
+  return {
+    labels: Object.keys(aggregated),
+    datasets: datasetKeys.map((key, datasetIndex) => ({
+      label: `${key} ${currency}`,
+      data: Object.values(aggregated).map((d) => d[datasetIndex]),
+      backgroundColor: colours[datasetIndex % colours.length],
+      borderColor: colours[datasetIndex % colours.length],
+      borderWidth: 1,
+      barThickness: 1,
+    })),
+  };
 }
