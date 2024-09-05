@@ -64,9 +64,9 @@ h5 {
 .transaction-flex {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
   width: 100%;
-  gap: 30px;
+  gap: 50px;
 }
 
 .chart-container {
