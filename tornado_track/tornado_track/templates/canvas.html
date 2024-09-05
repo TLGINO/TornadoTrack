@@ -13,6 +13,16 @@
     <div class="chart-container">
         <canvas id="depositChart">
     </div>
+
+
+    <div class="pie-container">
+        <canvas id="pieChart"></canvas>
+        <h5 id="total-stored">Total Stored:</h5>
+
+    </div>
+
+
+
 </div>
 
 <br>
@@ -27,7 +37,6 @@
 
     <div class="chart-container">
         <canvas id="withdrawalChart">
-
     </div>
 </div>
 
@@ -37,9 +46,10 @@
 {{ chain_id|json_script:"chain_id" }}
 {{ data_deposit|json_script:"data_deposit" }}
 {{ data_withdrawal|json_script:"data_withdrawal" }}
+{{ contract_storage|json_script:"contract_storage" }}
 
 
 
 
 <script src="{% static 'js/render_charts.js' %}"></script>
-<script src="{% static 'js/hypersockets.js' %}"></script>
+<script src="{% static 'js/render_pie.js' %}"></script>

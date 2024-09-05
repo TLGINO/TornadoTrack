@@ -5,7 +5,12 @@ import pandas as pd
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from tornado_track.utils.utils import format_time_ago, get_deposits, get_withdrawals
+from tornado_track.utils.utils import (
+    format_time_ago,
+    get_contract_storage_info,
+    get_deposits,
+    get_withdrawals,
+)
 
 
 def transform_timestamp(timestamp):
@@ -47,7 +52,6 @@ def main(request):
     for name, data in data_tornado.items():
         df = pd.DataFrame(data)
         df["timestamp"] = pd.to_datetime(df["timestamp"], unit="s")
-
         df_latest = df.nlargest(10, ["timestamp"])
 
         now = datetime.now()
@@ -55,7 +59,7 @@ def main(request):
         df_latest["timestamp"] = df_latest["time_ago"].apply(format_time_ago)
         df_latest.drop(columns=["time_ago"], inplace=True)
         df_latest["amount"] = df_latest["amount"].map(currency_map)
-        print(df_latest)
+        
         processed_data[f"{name}_latest"] = df_latest.to_dict(orient="records")
 
         df["timestamp"] = df["timestamp"].apply(transform_timestamp)
@@ -88,10 +92,20 @@ def main(request):
 
         processed_data[name] = {"labels": all_dates, "datasets": grouped_data}
 
+    with open("tornado_track/cryptos.json") as f:
+        data = json.load(f)[str(chain_id)][currency]
+        
+        data_parsed = [
+            {"amount": key, "addr":val, "stored": get_contract_storage_info(str(chain_id), currency, val)}
+            for key, val in data.items()
+        ]
+        processed_data["contract_storage"] = data_parsed
+    
     processed_data["currency"] = currency
     processed_data["chain_id"] = chain_id
 
     return render(request, "index.html", processed_data)
+
 
 
 def get_all_chains(request):
@@ -99,6 +113,7 @@ def get_all_chains(request):
         data = json.load(f)
         return JsonResponse(data)
     return JsonResponse({})
+
 
 
 def test(request):
