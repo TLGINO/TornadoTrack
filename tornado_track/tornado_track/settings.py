@@ -27,15 +27,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-SECURE_SSL_REDIRECT = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'sslserver',
+    # 'sslserver',
     "tornado_track",
     "django.contrib.admin",
     "django.contrib.auth",

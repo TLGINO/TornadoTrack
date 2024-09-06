@@ -1,4 +1,52 @@
+let depositChartInstance = null;
+let withdrawalChartInstance = null;
+
+const periods = [
+  { value: "day", label: "Daily" },
+  { value: "week", label: "Weekly" },
+  { value: "month", label: "Monthly" },
+];
+
+function renderPeriodButtons(periodVal) {
+  const periodContainer = document.getElementById("periodSelector");
+  periodContainer.innerHTML = "";
+
+  const urlParams = new URLSearchParams(window.location.search);
+  let selectedPeriod = periodVal || "week";
+
+  periods.forEach((period) => {
+    const button = document.createElement("div");
+    button.className = `item${
+      selectedPeriod === period.value ? " is-active" : ""
+    }`;
+    button.innerHTML = `
+      <div class="period-item">
+        <b class="network-bold">${period.label}</b>
+        <span class="period-checkbox"></span>
+      </div>
+    `;
+
+    button.onclick = () => {
+      setPeriod(period.value);
+    };
+
+    periodContainer.appendChild(button);
+  });
+}
+
+function setPeriod(selectedPeriod) {
+  renderPeriodButtons(selectedPeriod);
+
+  renderAll(selectedPeriod);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
+  renderPeriodButtons();
+
+  renderAll();
+});
+
+function renderAll(periodVal) {
   const depositCanvas = document.getElementById("depositChart");
   const withdrawalCanvas = document.getElementById("withdrawalChart");
 
@@ -11,28 +59,29 @@ document.addEventListener("DOMContentLoaded", function () {
   );
   const chain_id = JSON.parse(document.getElementById("chain_id").textContent);
 
-  console.log("DATA DEPOSIT", data_deposit);
-  console.log("DATA WITHDRAWAL", data_withdrawal);
+  let period = periodVal || "week"; // day, week, month
+  console.log(period);
 
-  const period = "month"; // day, week, month
-
-  renderChart(
+  depositChartInstance = renderChart(
     depositCanvas,
     data_deposit,
     "Deposit",
     currency,
     chain_id,
-    period
+    period,
+    depositChartInstance
   );
-  renderChart(
+
+  withdrawalChartInstance = renderChart(
     withdrawalCanvas,
     data_withdrawal,
     "Withdrawal",
     currency,
     chain_id,
-    period
+    period,
+    withdrawalChartInstance
   );
-});
+}
 
 function getChain(chain_id) {
   let chain;
@@ -67,9 +116,22 @@ function getChain(chain_id) {
   }
   return chain;
 }
-function renderChart(canvas, data, tornado_action, currency, chain_id, period) {
+function renderChart(
+  canvas,
+  data,
+  tornado_action,
+  currency,
+  chain_id,
+  period,
+  chartInstance
+) {
   const chain = getChain(chain_id);
   const colours = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"];
+
+  // Destroy the existing chart if it exists
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
 
   const aggregatedData = aggregateData(data, period, currency, colours);
   const datasets = aggregatedData.datasets.map((dataset, index) => ({
@@ -87,7 +149,8 @@ function renderChart(canvas, data, tornado_action, currency, chain_id, period) {
   };
 
   const ctx = canvas.getContext("2d");
-  new Chart(ctx, {
+
+  const newChart = new Chart(ctx, {
     type: "bar",
     data: chartData,
     options: {
@@ -129,8 +192,9 @@ function renderChart(canvas, data, tornado_action, currency, chain_id, period) {
       },
     },
   });
-}
 
+  return newChart;
+}
 function aggregateData(data, period, currency, colours) {
   const aggregated = {};
   const datasetKeys = Object.keys(data.datasets);

@@ -103,6 +103,7 @@ canvas {
   cursor: pointer;
 }
 
+.period-checkbox,
 .network-checkbox,
 .crypto-checkbox {
   margin-left: auto;
@@ -112,6 +113,7 @@ canvas {
   border-radius: 50%;
 }
 
+.item.is-active .period-checkbox,
 .item.is-active .network-checkbox,
 .item.is-active .crypto-checkbox {
   background-color: var(--primary);
@@ -159,4 +161,24 @@ canvas {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+/*  */
+
+#periodSelector .item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--primary);
+  border-radius: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  color: var(--white);
+}
+
+.period-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
