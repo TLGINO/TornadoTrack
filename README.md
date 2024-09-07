@@ -1,26 +1,29 @@
 # TornadoTrack
 
-![img](img/pic.png)
+![img](img/pic1.png)
 
 
-## IDEA:
-Create a dashboard for viewing TornadoCash usage over time.
+## IDEA
+This project focuses on building a dashboard that tracks Tornado Cash transactions over time, offering a clear view of both deposits and withdrawals.
 
-Features:
-- [Done] The dashboard will allow you to see usage on different chains.
-- The dashboard will show the last x transactions, along with a live update.
-- [Done] The dashboard at its core will be a stacked bar chart showing on a x-ly basis, how many deposits of sum y were made to the mixer.
-- Dashboard could also show total value locked in mixer as a chart.
-- [TBD] Overlay value of ETH/USD?
+It will highlight transaction trends and patterns, display the latest activities, and show the live balance held in each Tornado Cash contract.
 
-Tech Stack:
-- HyperIndex to get historical data on all chains
-- Backend django server for hosting and serving the pages
-- Frontend Jinjas
-- [TBD] HyperSync to get live data on a side panel and show last x transactions
+Users will be able to view the data by day, week, or month. The dashboard will also aggregate data from multiple blockchain networks and support all cryptocurrencies, providing an overview of Tornado Cash's usage across the crypto space.
+The aim is to create a robust tool for real-time analysis of Tornado Cash activity.
 
 
-# How to install:
+## Tech Stack:
+
+- **Envio HyperIndex:** I am self hosting an Envio HyperIndex instance. This tool is used to retrieve and index historical data across all blockchain networks. It ensures that the dashboard displays an accurate and up to date history of transactions for all relevant cryptocurrencies.
+
+- **Backend:** I am running a Django server to host and serve the web pages. Django was chosen for its robustness and ease of integration with other components of the tech stack (plus I like python:) )
+  
+- **Frontend:** The frontend is built using Jinjas templating engine, which works very well with Django to render dynamic content on the web pages and vanilla Javascript / CSS - I don't like frameworks much. I am also using the charts.js library to show graphs and the pie chart.
+
+
+## How to install:
+
+Make sure you have docker and python installed.
 
 Not necessary but best to create a venv:
 ```sh
@@ -46,3 +49,9 @@ sh run_all.sh
 ```
 
 
+
+# Some more pics:
+
+![img](img/pic2.png)
+![img](img/pic3.png)
+![img](img/pic4.png)

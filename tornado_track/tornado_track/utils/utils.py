@@ -28,8 +28,8 @@ def get_withdrawals(chain_id, desired_currency):
 
 
 def get_data_from_postgres_api(chain_id, desired_currency, query):
-    # endpoint = "https://indexer.bigdevenergy.link/07f29b2/v1/graphql"
     endpoint = "http://hyperindex.lettry.xyz/v1/graphql"
+    # endpoint = "http://localhost:8080/v1/graphql"
 
     headers = {
         "Authorization": "testing",

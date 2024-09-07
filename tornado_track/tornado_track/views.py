@@ -27,6 +27,7 @@ def main(request):
 
     cached_data = cache.get(cache_key)
     if cached_data:
+        print("Using cached data")
         return render(request, "index.html", cached_data)
 
     currency_map = {
