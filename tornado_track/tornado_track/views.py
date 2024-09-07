@@ -2,6 +2,7 @@ import json
 from datetime import datetime
 
 import pandas as pd
+from django.core.cache import cache
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -21,6 +22,12 @@ def main(request):
     chain_id = request.GET.get("id", 1)
     currency = request.GET.get("currency", "ETH")
     print(f"Chain ID: {chain_id} \nCurrency: {currency}")
+
+    cache_key = f"{chain_id}_{currency}"
+
+    cached_data = cache.get(cache_key)
+    if cached_data:
+        return render(request, "index.html", cached_data)
 
     currency_map = {
         "V_0_1": 0.1,
@@ -59,7 +66,7 @@ def main(request):
         df_latest["timestamp"] = df_latest["time_ago"].apply(format_time_ago)
         df_latest.drop(columns=["time_ago"], inplace=True)
         df_latest["amount"] = df_latest["amount"].map(currency_map)
-        
+
         processed_data[f"{name}_latest"] = df_latest.to_dict(orient="records")
 
         df["timestamp"] = df["timestamp"].apply(transform_timestamp)
@@ -94,18 +101,24 @@ def main(request):
 
     with open("tornado_track/cryptos.json") as f:
         data = json.load(f)[str(chain_id)][currency]
-        
+
         data_parsed = [
-            {"amount": key, "addr":val, "stored": get_contract_storage_info(str(chain_id), currency, val)}
+            {
+                "amount": key,
+                "addr": val,
+                "stored": get_contract_storage_info(str(chain_id), currency, val),
+            }
             for key, val in data.items()
         ]
         processed_data["contract_storage"] = data_parsed
-    
+
     processed_data["currency"] = currency
     processed_data["chain_id"] = chain_id
 
-    return render(request, "index.html", processed_data)
+    # Store the data in cache for 10 minutes
+    cache.set(cache_key, processed_data, timeout=600)
 
+    return render(request, "index.html", processed_data)
 
 
 def get_all_chains(request):
@@ -113,7 +126,6 @@ def get_all_chains(request):
         data = json.load(f)
         return JsonResponse(data)
     return JsonResponse({})
-
 
 
 def test(request):

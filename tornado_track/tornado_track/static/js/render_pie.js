@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
   )
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       let usdVal = 1;
       try {
         usdVal = data[mapping[currency]].usd;

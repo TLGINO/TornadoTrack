@@ -156,7 +156,6 @@ canvas {
   background-color: var(--primary-invert);
   color: var(--white);
   z-index: 1;
-  /* width: 50%; */
 }
 
 .dropdown:hover .dropdown-content {

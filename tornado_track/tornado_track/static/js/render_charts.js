@@ -60,7 +60,6 @@ function renderAll(periodVal) {
   const chain_id = JSON.parse(document.getElementById("chain_id").textContent);
 
   let period = periodVal || "week"; // day, week, month
-  console.log(period);
 
   depositChartInstance = renderChart(
     depositCanvas,
